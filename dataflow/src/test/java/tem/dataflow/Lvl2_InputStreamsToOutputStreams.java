@@ -20,7 +20,7 @@ public class Lvl2_InputStreamsToOutputStreams {
     InputStream in = null;
     try {
       in = Res.stream();
-      process(in, System.out);
+      Processor.run(in, System.out);
     } catch (IOException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
@@ -31,12 +31,12 @@ public class Lvl2_InputStreamsToOutputStreams {
    * https://stackoverflow.com/questions/7860137/what-is-the-java-7-try-with-resources-bytecode-equivalent-using-try-catch-finall
    */
   @Test
-  public void properIOHandling() throws CustomFail, IOException {
+  public void properIOHandling() throws IOException {
     try {
       final InputStream in = Res.stream();
       Throwable ioEx = null;
       try {
-        process(in, System.out);
+        Processor.run(in, System.out);
       } catch (Throwable t) {
         ioEx = t;
         throw t;
@@ -57,18 +57,4 @@ public class Lvl2_InputStreamsToOutputStreams {
       ioe.printStackTrace();
     }
   }
-
-  /**
-   * @throws CustomFail when marking is unsupported
-   */
-  private void process(InputStream from, OutputStream to) throws CustomFail,
-      IOException {
-    if (!from.markSupported()) {
-      throw new CustomFail();
-    }
-    Processor.run(from, to);
-  }
-
-  @SuppressWarnings("serial")
-  private static class CustomFail extends Exception {}
 }
