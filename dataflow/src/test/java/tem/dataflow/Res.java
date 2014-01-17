@@ -9,6 +9,7 @@ import javax.xml.transform.stream.StreamSource;
 
 import koka.util.io.guava.Bytes;
 
+import com.google.common.io.ByteSource;
 import com.google.common.io.ByteStreams;
 import com.google.common.io.InputSupplier;
 
@@ -28,8 +29,8 @@ final class Res {
     return new ByteArrayInputStream(string().getBytes());
   }
 
-  static InputSupplier<? extends InputStream> byteSource() {
-    return ByteStreams.newInputStreamSupplier(string().getBytes());
+  static ByteSource byteSource() {
+    return ByteSource.wrap(string().getBytes());
   }
 
   static InputSupplier<InputStream> supplier(long size) {
