@@ -27,35 +27,42 @@ public class Lvl2_InputStreamsToOutputStreams {
     }
   }
 
+  /**
+   * https://stackoverflow.com/questions/7860137/what-is-the-java-7-try-with-resources-bytecode-equivalent-using-try-catch-finall
+   */
   @Test
   public void properIOHandling() throws CustomFail, IOException {
-    InputStream in = Res.stream();
-    CustomFail fail = null;
     try {
-      process(in, System.out);
-    } catch (CustomFail e) {
-      fail = e;
-    } finally {
+      final InputStream in = Res.stream();
+      Throwable ioEx = null;
       try {
-        in.close();
-      } catch (IOException e) {
-        if (fail == null) {
-          throw e;
-        } else {
-          fail.addSuppressed(e);
+        process(in, System.out);
+      } catch (Throwable t) {
+        ioEx = t;
+        throw t;
+      } finally {
+        if (in != null) {
+          if (ioEx != null) {
+            try {
+              in.close();
+            } catch (Throwable t) {
+              ioEx.addSuppressed(t);
+            }
+          } else {
+            in.close();
+          }
         }
       }
-    }
-    if (fail != null) {
-      throw fail;
+    } catch (IOException ioe) {
+      ioe.printStackTrace();
     }
   }
 
   /**
    * @throws CustomFail when marking is unsupported
    */
-  private void process(InputStream from, OutputStream to)
-      throws CustomFail, IOException {
+  private void process(InputStream from, OutputStream to) throws CustomFail,
+      IOException {
     if (!from.markSupported()) {
       throw new CustomFail();
     }
