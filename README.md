@@ -1,5 +1,9 @@
-tem
+TEM
 ===
+
+Repo for Technical Exchange Meetings that I give.
+
+* Dataflow: "The Ins and Outs of IO" Files, strings, byte arrays, InputStreams, etc are terrible.  Let's do better.  We will go over java's IO capabilities for handling data from files, strings, and byte arrays to InputStreams and why they all fall short.  Then, we will  check out guava's IO utilities and take them to the next level for fast, easy streaming workflows.
 
 Since this isn't in maven central yet, execute the following to setup the TEM
 
