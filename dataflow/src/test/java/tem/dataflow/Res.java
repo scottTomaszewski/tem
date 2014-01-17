@@ -28,7 +28,7 @@ final class Res {
     return new ByteArrayInputStream(string().getBytes());
   }
 
-  static InputSupplier<? extends InputStream> supplier() {
+  static InputSupplier<? extends InputStream> byteSource() {
     return ByteStreams.newInputStreamSupplier(string().getBytes());
   }
 

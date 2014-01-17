@@ -19,7 +19,7 @@ public final class Lvl3_InputSupplierToOutputSupplier {
    */
   @Test
   public void notStateful() throws IOException {
-    InputSupplier<? extends InputStream> from = Res.supplier();
+    InputSupplier<? extends InputStream> from = Res.byteSource();
     System.out.println("First:");
     Processor.run(from, System.out);
     System.out.println("\n\nSecond:");
@@ -31,7 +31,7 @@ public final class Lvl3_InputSupplierToOutputSupplier {
    */
   @Test
   public void betterIOHandling() throws IOException {
-    InputSupplier<? extends InputStream> from = Res.supplier();
+    InputSupplier<? extends InputStream> from = Res.byteSource();
     Closer c = Closer.create();
     try {
       InputStream in = c.register(from.getInput());
@@ -55,7 +55,7 @@ public final class Lvl3_InputSupplierToOutputSupplier {
    */
   @Test
   public void needToStoreBetweenOperations() throws IOException {
-    InputSupplier<? extends InputStream> from = Res.supplier();
+    InputSupplier<? extends InputStream> from = Res.byteSource();
     File temp = File.createTempFile("partOne", ".xml");
     try {
       duplicateInput(from, Files.newOutputStreamSupplier(temp));
