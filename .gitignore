@@ -6,3 +6,4 @@ target/
 .pmdruleset.xml
 .DS_Store
 target-eclipse/
+bin/
