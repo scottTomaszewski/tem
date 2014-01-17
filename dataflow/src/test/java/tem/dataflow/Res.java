@@ -7,6 +7,8 @@ import java.io.InputStream;
 import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
 
+import koka.util.io.guava.Bytes;
+
 import com.google.common.io.ByteStreams;
 import com.google.common.io.InputSupplier;
 
