@@ -33,15 +33,18 @@ final class Res {
     return ByteSource.wrap(string().getBytes());
   }
 
+  @Deprecated
   static InputSupplier<InputStream> supplier(long size) {
     return Bytes.random().slice(0, size);
   }
 
+  @Deprecated
   static InputSupplier<InputStream> cachedSupplier(long size)
       throws IOException {
     return Bytes.random().slice(0, size).cacheToDisk();
   }
 
+  @Deprecated
   static InputSupplier<Source> source() {
     return new InputSupplier<Source>() {
       @Override
@@ -51,6 +54,7 @@ final class Res {
     };
   }
 
+  @Deprecated
   static InputSupplier<Source> source(
       final InputSupplier<InputStream> from) {
     return new InputSupplier<Source>() {
