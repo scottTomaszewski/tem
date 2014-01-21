@@ -32,10 +32,10 @@ public final class Lvl3_ByteSourceToByteSink {
    */
   @Test
   public void betterIOHandling() throws IOException {
-    InputSupplier<? extends InputStream> from = Res.byteSource();
+    ByteSource from = Res.byteSource();
     Closer c = Closer.create();
     try {
-      InputStream in = c.register(from.getInput());
+      InputStream in = c.register(from.openStream());
       Processor.run(in, System.out);
     } catch (Throwable e) {
       throw c.rethrow(e);
