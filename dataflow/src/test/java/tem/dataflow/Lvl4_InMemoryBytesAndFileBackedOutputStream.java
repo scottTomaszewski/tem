@@ -32,7 +32,7 @@ public final class Lvl4_InMemoryBytesAndFileBackedOutputStream {
    *   at com.google.common.io.ByteSource.copyTo(ByteSource.java:183)
    *   at com.google.common.io.ByteStreams.copy(ByteStreams.java:172)
    *   at tem.dataflow.Processor.duplicateInput(Processor.java:16)
-   *   at tem.dataflow.Lvl4_InMemoryBytesAndFileBackedOutputStream.storingInMemoryOverflowsHeapAndIsSlow(Lvl4_InMemoryBytesFileBackedOutputStream.java:45)
+   *   at tem.dataflow.Lvl4_InMemoryBytesAndFileBackedOutputStream.storingInMemoryOverflowsHeap(Lvl4_InMemoryBytesFileBackedOutputStream.java:43)
    * </pre>
    */
   @Test
