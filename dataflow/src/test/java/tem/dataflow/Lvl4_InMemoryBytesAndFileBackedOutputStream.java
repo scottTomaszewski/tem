@@ -66,7 +66,7 @@ public final class Lvl4_InMemoryBytesAndFileBackedOutputStream {
    */
   @Test
   public void storingOnDiskIsSlowAndCanCrash() throws IOException {
-    InputSupplier<InputStream> from = Res.supplier(gb1);
+    ByteSource from = Res.randomBytesOfLength(gb1);
     FileBackedOutputStream fbos = new FileBackedOutputStream(mb1);
     duplicateInput(from, fbos);
     Processor.run(fbos.asByteSource(), ByteStreams.nullOutputStream());
