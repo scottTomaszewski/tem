@@ -39,6 +39,13 @@ final class Processor {
     }
   }
 
+  static void run(ByteSource from, OutputStream to)
+      throws IOException {
+    try (InputStream in = from.openStream()) {
+      run(in, to);
+    }
+  }
+
   static void run(InputStream from, OutputStream to) throws IOException {
     ByteStreams.copy(from, to);
   }
