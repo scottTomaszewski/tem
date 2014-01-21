@@ -15,7 +15,7 @@ import com.google.common.base.Stopwatch;
 import com.google.common.io.ByteStreams;
 import com.google.common.io.InputSupplier;
 
-public final class Lvl5_ImplementInputSupplierAndPipedFromOutput {
+public final class Lvl5_ImplementByteSourceAndPipedByteSource {
   /**
    * <p>
    * Wraps the operation you want to perform in the getInput() method of your
