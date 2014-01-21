@@ -8,18 +8,19 @@ import java.io.InputStream;
 
 import org.junit.Test;
 
+import com.google.common.io.ByteSource;
 import com.google.common.io.Closer;
 import com.google.common.io.Files;
 import com.google.common.io.InputSupplier;
 
 public final class Lvl3_ByteSourceToByteSink {
   /**
-   * InputSuppliers are not stateful like InputStreams so we can read multiple
+   * ByteSources are not stateful like InputStreams so we can read multiple
    * times.
    */
   @Test
   public void notStateful() throws IOException {
-    InputSupplier<? extends InputStream> from = Res.byteSource();
+    ByteSource from = Res.byteSource();
     System.out.println("First:");
     Processor.run(from, System.out);
     System.out.println("\n\nSecond:");
