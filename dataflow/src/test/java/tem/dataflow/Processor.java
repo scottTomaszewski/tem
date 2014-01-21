@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import com.google.common.io.ByteSink;
+import com.google.common.io.ByteSource;
 import com.google.common.io.ByteStreams;
 import com.google.common.io.InputSupplier;
 import com.google.common.io.OutputSupplier;
@@ -20,6 +22,12 @@ final class Processor {
       InputSupplier<? extends InputStream> from,
       OutputSupplier<? extends OutputStream> to) throws IOException {
     try (OutputStream out = to.getOutput()) {
+      run(from, out);
+    }
+  }
+
+  static void run(ByteSource from, ByteSink to) throws IOException {
+    try (OutputStream out = to.openStream()) {
       run(from, out);
     }
   }
