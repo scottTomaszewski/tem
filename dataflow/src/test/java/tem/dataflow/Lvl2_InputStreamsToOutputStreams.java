@@ -5,8 +5,6 @@ import java.io.InputStream;
 
 import org.junit.Test;
 
-import com.google.common.io.ByteStreams;
-
 public class Lvl2_InputStreamsToOutputStreams {
   @Test
   public void streamsAreStateful() throws Exception {
