@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.concurrent.TimeUnit;
 
+import koka.util.io.guava.PipedByteSource;
 import koka.util.io.guava.PipedFromOutput;
 
 import org.junit.Test;
@@ -112,37 +113,34 @@ public final class Lvl5_ImplementByteSourceAndPipedByteSource {
 
   /**
    * In many cases, you need to work with a third party library uses an
-   * OutputStream in their public API. In cases like these, you can't wrap an
-   * InputSupplier because you need that OutputStream.
+   * OutputStream in their public API. In cases like these, you can't wrap a
+   * ByteSource because you need that OutputStream.
    * <p>
    * On T3500 Machine, 7.499 seconds for 1gb payload full streaming in
    * PipedFromOutput
    * </p>
    * <p>
-   * Note: Be aware that PipedFromOutput starts up a second thread!
+   * Note: Be aware that PipedByteSource starts up a second thread!
    * </p>
    * <p>
-   * Note: This is using PipedFromOutput from util-io-guava v0.7-81
-   * </p>
-   * <p>
-   * Note: Just like InputSuppliers, PipedFromOutput is lazy.
+   * Note: Just like ByteSources, PipedByteSource is lazy.
    * </p>
    */
   @Test
-  public void pipedFromOutputToTheRescue() throws IOException {
-    DuplicatedPiped from = new DuplicatedPiped(Res.supplier(gb1));
+  public void pipedByteSourceToTheRescue() throws IOException {
+    DuplicatedPiped from = new DuplicatedPiped(Res.randomBytesOfLength(gb1));
     Processor.run(from, ByteStreams.nullOutputStream());
   }
 
-  private static final class DuplicatedPiped extends PipedFromOutput {
-    private final InputSupplier<? extends InputStream> toDuplicate;
+  private static final class DuplicatedPiped extends PipedByteSource {
+    private final ByteSource toDuplicate;
 
-    public DuplicatedPiped(InputSupplier<? extends InputStream> toDuplicate) {
+    public DuplicatedPiped(ByteSource toDuplicate) {
       this.toDuplicate = toDuplicate;
     }
-
+    
     @Override
-    protected void write(OutputStream to) throws IOException {
+    protected void passThrough(OutputStream to) throws IOException {
       Processor.duplicateInput(toDuplicate, to);
     }
   }
