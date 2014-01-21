@@ -7,7 +7,6 @@ import java.io.InputStream;
 import koka.util.io.guava.Bytes;
 
 import com.google.common.io.ByteSource;
-import com.google.common.io.InputSupplier;
 
 /**
  * Resources for use in the tem. Generates data, random or otherwise.
@@ -29,19 +28,8 @@ final class Res {
     return ByteSource.wrap(string().getBytes());
   }
 
-  @Deprecated
-  static InputSupplier<InputStream> supplier(long size) {
-    return Bytes.random().slice(0, size);
-  }
-
   static Bytes randomBytesOfLength(long size) {
     return Bytes.random().slice(0, size);
-  }
-
-  @Deprecated
-  static InputSupplier<InputStream> cachedSupplier(long size)
-      throws IOException {
-    return Bytes.random().slice(0, size).cacheToDisk();
   }
 
   static Bytes randomCachedBytesOfLength(long size) throws IOException {
