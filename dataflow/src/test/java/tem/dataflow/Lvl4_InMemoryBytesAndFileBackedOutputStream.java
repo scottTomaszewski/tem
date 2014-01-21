@@ -5,9 +5,7 @@ import static tem.dataflow.Res.gb1;
 import static tem.dataflow.Res.mb1;
 
 import java.io.IOException;
-import java.io.InputStream;
 
-import koka.util.io.guava.InMemoryBytes;
 import koka.util.io.guava.InMemoryBytes;
 
 import org.junit.Test;
@@ -15,7 +13,6 @@ import org.junit.Test;
 import com.google.common.io.ByteSource;
 import com.google.common.io.ByteStreams;
 import com.google.common.io.FileBackedOutputStream;
-import com.google.common.io.InputSupplier;
 
 public final class Lvl4_InMemoryBytesAndFileBackedOutputStream {
   /**
