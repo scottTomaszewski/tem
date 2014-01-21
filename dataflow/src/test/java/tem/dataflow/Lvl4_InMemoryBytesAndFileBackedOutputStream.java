@@ -94,7 +94,7 @@ public final class Lvl4_InMemoryBytesAndFileBackedOutputStream {
    */
   @Test
   public void cachedStoringOnDiskIsSlow() throws IOException {
-    InputSupplier<InputStream> from = Res.cachedSupplier(gb1);
+    ByteSource from = Res.randomCachedBytesOfLength(gb1);
     FileBackedOutputStream fbos = new FileBackedOutputStream(mb1);
     duplicateInput(from, fbos);
     Processor.run(fbos.asByteSource(), ByteStreams.nullOutputStream());
