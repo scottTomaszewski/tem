@@ -92,24 +92,6 @@ public final class Lvl5_ImplementByteSourceAndPipedByteSource {
   }
 
   /**
-   * Another demonstration of how lazy ByteSources are. Output:
-   * 
-   * <pre>
-   *   13 ms
-   *   6.485 s
-   * </pre>
-   */
-  @Test
-  public void byteSourceAreLazy2() throws Exception {
-    Stopwatch t = Stopwatch.createStarted();
-    InputStream hasntRunYet =
-        new DuplicatedInput(Res.randomBytesOfLength(gb1)).openStream();
-    System.out.println(t.elapsed(TimeUnit.MILLISECONDS) + " ms");
-    Processor.run(hasntRunYet, ByteStreams.nullOutputStream());
-    System.out.println(t.stop());
-  }
-
-  /**
    * In many cases, you need to work with a third party library uses an
    * OutputStream in their public API. In cases like these, you can't wrap a
    * ByteSource because you need that OutputStream.
