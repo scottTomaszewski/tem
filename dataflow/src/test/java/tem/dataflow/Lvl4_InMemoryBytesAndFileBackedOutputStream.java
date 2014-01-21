@@ -38,9 +38,9 @@ public final class Lvl4_InMemoryBytesAndFileBackedOutputStream {
   @Test
   public void storingInMemoryOverflowsHeap() throws IOException {
     ByteSource from = Res.randomBytesOfLength(gb1);
-    InMemoryBytes outToIn = new InMemoryBytes();
-    duplicateInput(from, outToIn);
-    Processor.run(outToIn.asByteSource(), ByteStreams.nullOutputStream());
+    InMemoryBytes outputToInput = new InMemoryBytes();
+    duplicateInput(from, outputToInput);
+    Processor.run(outputToInput.asByteSource(), ByteStreams.nullOutputStream());
   }
 
   /**
