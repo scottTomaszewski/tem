@@ -102,7 +102,7 @@ public final class Lvl5_ImplementByteSourceAndPipedByteSource {
    */
   @Test
   public void byteSourceAreLazy2() throws Exception {
-    Stopwatch t = new Stopwatch().start();
+    Stopwatch t = Stopwatch.createStarted();
     InputStream hasntRunYet =
         new DuplicatedInput(Res.randomBytesOfLength(gb1)).openStream();
     System.out.println(t.elapsed(TimeUnit.MILLISECONDS) + " ms");
