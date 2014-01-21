@@ -5,13 +5,16 @@ import java.io.InputStream;
 
 import org.junit.Test;
 
+import com.google.common.io.ByteStreams;
+
 public class Lvl2_InputStreamsToOutputStreams {
   @Test
   public void streamsAreStateful() throws Exception {
     InputStream in = Res.stream();
     in.read();
     in.read();
-    Processor.run(in, System.out); // prints "oo><bar/></foo>"
+    // prints "oo><bar/></foo>"
+    Processor.run(in, System.out); 
   }
 
   @Test
