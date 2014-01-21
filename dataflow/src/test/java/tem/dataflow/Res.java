@@ -52,38 +52,5 @@ final class Res {
     return randomBytesOfLength(size).cacheToDisk();
   }
 
-  @Deprecated
-  static InputSupplier<Source> source() {
-    return new InputSupplier<Source>() {
-      @Override
-      public Source getInput() {
-        return new StreamSource(stream());
-      }
-    };
-  }
-
-  @Deprecated
-  static InputSupplier<Source> source(
-      final InputSupplier<InputStream> from) {
-    return new InputSupplier<Source>() {
-      @Override
-      public Source getInput() throws IOException {
-        try {
-          return new StreamSource(from.getInput());
-        } catch (IOException e) {
-          throw new IOException(e);
-        }
-      }
-    };
-  }
-
-  static InputSupplier<InputStream> inXml(
-      InputSupplier<InputStream> payload) {
-    return ByteStreams.join(
-        ByteStreams.newInputStreamSupplier("<foo>".getBytes()),
-        payload,
-        ByteStreams.newInputStreamSupplier("</foo>".getBytes()));
-  }
-
   private Res() {}
 }
