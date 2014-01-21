@@ -8,14 +8,12 @@ import java.io.OutputStream;
 import java.util.concurrent.TimeUnit;
 
 import koka.util.io.guava.PipedByteSource;
-import koka.util.io.guava.PipedFromOutput;
 
 import org.junit.Test;
 
 import com.google.common.base.Stopwatch;
 import com.google.common.io.ByteSource;
 import com.google.common.io.ByteStreams;
-import com.google.common.io.InputSupplier;
 
 public final class Lvl5_ImplementByteSourceAndPipedByteSource {
   /**
