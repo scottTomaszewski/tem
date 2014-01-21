@@ -147,17 +147,17 @@ public final class Lvl5_ImplementByteSourceAndPipedByteSource {
 
   /**
    * On T3500 Machine, 7.213 seconds for 1gb payload full streaming inlined
-   * PipedFromOutput
+   * PipedByteSource
    * <p>
-   * You can inline the PipedFromOutput class to reduce boilerplate code
+   * You can inline the PipedByteSource class to reduce boilerplate code
    * </p>
    */
   @Test
-  public void extraCredit_inlinePipedFromOutput() throws IOException {
-    final InputSupplier<? extends InputStream> from = Res.supplier(gb1);
-    InputSupplier<InputStream> wrapped = new PipedFromOutput() {
+  public void extraCredit_inlinePipedByteSource() throws IOException {
+    final ByteSource from = Res.randomBytesOfLength(gb1);
+    ByteSource wrapped = new PipedByteSource() {
       @Override
-      protected void write(OutputStream to) throws IOException {
+      protected void passThrough(OutputStream to) throws IOException {
         Processor.duplicateInput(from, to);
       }
     };
