@@ -37,8 +37,8 @@ final class Res {
   static InputSupplier<InputStream> supplier(long size) {
     return Bytes.random().slice(0, size);
   }
-  
-  static ByteSource randomBytesOfLength(long size) {
+
+  static Bytes randomBytesOfLength(long size) {
     return Bytes.random().slice(0, size);
   }
 
@@ -46,6 +46,10 @@ final class Res {
   static InputSupplier<InputStream> cachedSupplier(long size)
       throws IOException {
     return Bytes.random().slice(0, size).cacheToDisk();
+  }
+
+  static Bytes randomCachedBytesOfLength(long size) throws IOException {
+    return randomBytesOfLength(size).cacheToDisk();
   }
 
   @Deprecated
