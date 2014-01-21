@@ -37,6 +37,10 @@ final class Res {
   static InputSupplier<InputStream> supplier(long size) {
     return Bytes.random().slice(0, size);
   }
+  
+  static ByteSource randomBytesOfLength(long size) {
+    return Bytes.random().slice(0, size);
+  }
 
   @Deprecated
   static InputSupplier<InputStream> cachedSupplier(long size)
