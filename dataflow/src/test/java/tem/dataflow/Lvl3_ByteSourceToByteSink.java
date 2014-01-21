@@ -12,7 +12,7 @@ import com.google.common.io.Closer;
 import com.google.common.io.Files;
 import com.google.common.io.InputSupplier;
 
-public final class Lvl3_InputSupplierToOutputSupplier {
+public final class Lvl3_ByteSourceToByteSink {
   /**
    * InputSuppliers are not stateful like InputStreams so we can read multiple
    * times.
