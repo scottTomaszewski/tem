@@ -7,15 +7,17 @@ import static tem.dataflow.Res.mb1;
 import java.io.IOException;
 import java.io.InputStream;
 
-import koka.util.io.guava.InMemoryStorage;
+import koka.util.io.guava.InMemoryBytes;
+import koka.util.io.guava.InMemoryBytes;
 
 import org.junit.Test;
 
+import com.google.common.io.ByteSource;
 import com.google.common.io.ByteStreams;
 import com.google.common.io.FileBackedOutputStream;
 import com.google.common.io.InputSupplier;
 
-public final class Lvl4_InMemoryStorageAndFileBackedOutputStream {
+public final class Lvl4_InMemoryBytesAndFileBackedOutputStream {
   /**
    * Instead of storing to a temp file, you could store in memory for speed, but
    * has a limited input size.
@@ -33,15 +35,15 @@ public final class Lvl4_InMemoryStorageAndFileBackedOutputStream {
    *   at com.google.common.io.ByteSource.copyTo(ByteSource.java:183)
    *   at com.google.common.io.ByteStreams.copy(ByteStreams.java:172)
    *   at tem.dataflow.Processor.duplicateInput(Processor.java:16)
-   *   at tem.dataflow.Lvl4_InMemoryStorageFileBackedOutputStream.storingInMemoryOverflowsHeapAndIsSlow(Lvl4_InMemoryStorageFileBackedOutputStream.java:45)
+   *   at tem.dataflow.Lvl4_InMemoryBytesAndFileBackedOutputStream.storingInMemoryOverflowsHeapAndIsSlow(Lvl4_InMemoryBytesFileBackedOutputStream.java:45)
    * </pre>
    */
   @Test
   public void storingInMemoryOverflowsHeap() throws IOException {
-    InputSupplier<InputStream> from = Res.supplier(gb1);
-    InMemoryStorage outToIn = new InMemoryStorage();
+    ByteSource from = Res.randomBytesOfLength(gb1);
+    InMemoryBytes outToIn = new InMemoryBytes();
     duplicateInput(from, outToIn);
-    Processor.run(outToIn, ByteStreams.nullOutputStream());
+    Processor.run(outToIn.asByteSource(), ByteStreams.nullOutputStream());
   }
 
   /**
