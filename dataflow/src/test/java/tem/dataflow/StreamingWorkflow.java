@@ -5,39 +5,36 @@ import java.io.InputStream;
 
 import org.junit.Test;
 
-import com.google.common.io.ByteStreams;
-import com.google.common.io.InputSupplier;
+import com.google.common.io.ByteSource;
 
 public final class StreamingWorkflow {
   @Test
   public void flowsTwice() throws IOException {
-    InputSupplier<InputStream> first = new CreateAndPrint();
-    InputSupplier<InputStream> printed = new Prints(first);
-    ByteStreams.copy(printed, System.out);
-    ByteStreams.copy(printed, System.out);
+    ByteSource first = new CreateAndPrint();
+    ByteSource printed = new Prints(first);
+    printed.copyTo(System.out);
+    printed.copyTo(System.out);
   }
 
-  private final class CreateAndPrint
-      implements InputSupplier<InputStream> {
+  private final class CreateAndPrint extends ByteSource {
     @Override
-    public InputStream getInput() throws IOException {
+    public InputStream openStream() throws IOException {
       InputStream stream = Res.stream();
       System.out.println("\nNew InputStream created.");
       return stream;
     }
   }
 
-  private static final class Prints
-      implements InputSupplier<InputStream> {
-    private final InputSupplier<InputStream> from;
+  private static final class Prints extends ByteSource {
+    private final ByteSource from;
 
-    public Prints(InputSupplier<InputStream> from) {
+    public Prints(ByteSource from) {
       this.from = from;
     }
 
     @Override
-    public InputStream getInput() throws IOException {
-      InputStream input = from.getInput();
+    public InputStream openStream() throws IOException {
+      InputStream input = from.openStream();
       System.out.println("Second operation executed.");
       return input;
     }
