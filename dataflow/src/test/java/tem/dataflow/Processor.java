@@ -18,6 +18,7 @@ import com.google.common.io.OutputSupplier;
  * </p>
  */
 final class Processor {
+  @Deprecated
   static void run(
       InputSupplier<? extends InputStream> from,
       OutputSupplier<? extends OutputStream> to) throws IOException {
@@ -32,6 +33,7 @@ final class Processor {
     }
   }
 
+  @Deprecated
   static void run(InputSupplier<? extends InputStream> from, OutputStream to)
       throws IOException {
     try (InputStream in = from.getInput()) {
@@ -50,6 +52,7 @@ final class Processor {
     ByteStreams.copy(from, to);
   }
 
+  @Deprecated
   static void duplicateInput(
       InputSupplier<? extends InputStream> from,
       OutputSupplier<? extends OutputStream> to) throws IOException {
@@ -66,6 +69,7 @@ final class Processor {
     }
   }
 
+  @Deprecated
   static void duplicateInput(
       InputSupplier<? extends InputStream> from,
       OutputStream to) throws IOException {
