@@ -12,7 +12,6 @@ import com.google.common.io.ByteSource;
 import com.google.common.io.Closer;
 import com.google.common.io.FileWriteMode;
 import com.google.common.io.Files;
-import com.google.common.io.InputSupplier;
 
 public final class Lvl3_ByteSourceToByteSink {
   /**
