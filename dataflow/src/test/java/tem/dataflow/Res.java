@@ -39,7 +39,7 @@ final class Res {
 
   static InputSupplier<InputStream> cachedSupplier(long size)
       throws IOException {
-    return Bytes.random().limitedTo(size).cacheToDisk();
+    return Bytes.random().slice(0, size).cacheToDisk();
   }
 
   static InputSupplier<Source> source() {
