@@ -12,20 +12,21 @@ import koka.util.io.guava.PipedFromOutput;
 import org.junit.Test;
 
 import com.google.common.base.Stopwatch;
+import com.google.common.io.ByteSource;
 import com.google.common.io.ByteStreams;
 import com.google.common.io.InputSupplier;
 
 public final class Lvl5_ImplementByteSourceAndPipedByteSource {
   /**
    * <p>
-   * Wraps the operation you want to perform in the getInput() method of your
-   * own InputSupplier.
+   * Wraps the operation you want to perform in the openStream() method of your
+   * own ByteSource.
    * </p>
    * <p>
-   * Uses a class, DuplicatedInput that implements the InputSupplier interface.
-   * In the getInput method, the class will perform the desired operation. In
-   * the case below, the getInput method will duplicate the provided input AS
-   * the stream flows through it.
+   * Uses a class, DuplicatedInput that extends the ByteSource class. In the
+   * openStream method, the class will perform the desired operation. In the
+   * case below, the openStream method will duplicate the provided input AS the
+   * stream flows through it.
    * </p>
    * <p>
    * On T3500 Machine, 6.495 seconds for 1gb payload full streaming
@@ -37,31 +38,31 @@ public final class Lvl5_ImplementByteSourceAndPipedByteSource {
    * </p>
    */
   @Test
-  public void DIYInputSupplier() throws Exception {
-    DuplicatedInput from = new DuplicatedInput(Res.supplier(gb1));
+  public void DIYByteSource() throws Exception {
+    DuplicatedInput from = new DuplicatedInput(Res.randomBytesOfLength(gb1));
     Processor.run(from, ByteStreams.nullOutputStream());
   }
 
-  private static class DuplicatedInput implements InputSupplier<InputStream> {
-    private final InputSupplier<? extends InputStream> toDuplicate;
+  private static class DuplicatedInput extends ByteSource {
+    private final ByteSource toDuplicate;
 
-    public DuplicatedInput(InputSupplier<? extends InputStream> toDuplicate) {
+    public DuplicatedInput(ByteSource toDuplicate) {
       this.toDuplicate = toDuplicate;
     }
 
     @Override
-    public InputStream getInput() throws IOException {
-      return ByteStreams.join(toDuplicate, toDuplicate).getInput();
+    public InputStream openStream() throws IOException {
+      return ByteSource.concat(toDuplicate, toDuplicate).openStream();
     }
   }
 
   /**
-   * Although you may implement logic inside the getInput method, that logic
-   * doesn't get executed until the read is performed because InputSuppliers are
+   * Although you may implement logic inside the openStream method, that logic
+   * doesn't get executed until the read is performed because ByteSources are
    * lazy.
    * <p>
-   * To demonstrate, this method calls getInput, but the exception is not thrown
-   * before printing "Still running." as you may have expected.
+   * To demonstrate, this method calls openStream, but the exception is not
+   * thrown before printing "Still running." as you may have expected.
    * </p>
    * Output:
    * 
@@ -70,16 +71,16 @@ public final class Lvl5_ImplementByteSourceAndPipedByteSource {
    * </pre>
    */
   @Test
-  public void inputSuppliersAreLazy() throws IOException {
-    InputStream unread = new Lazy().getInput();
+  public void byteSourcesAreLazy() throws IOException {
+    InputStream unread = new Lazy().openStream();
     System.out.println("Still running.");
     ByteStreams.copy(unread, ByteStreams.nullOutputStream());
     System.out.println("never printed.");
   }
 
-  private static final class Lazy implements InputSupplier<InputStream> {
+  private static final class Lazy extends ByteSource {
     @Override
-    public InputStream getInput() {
+    public InputStream openStream() {
       return new BlowsUpOnRead();
     }
   }
