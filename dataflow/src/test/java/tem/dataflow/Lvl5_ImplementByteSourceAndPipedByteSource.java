@@ -93,7 +93,7 @@ public final class Lvl5_ImplementByteSourceAndPipedByteSource {
   }
 
   /**
-   * Another demonstration of how lazy InputSuppliers are. Output:
+   * Another demonstration of how lazy ByteSources are. Output:
    * 
    * <pre>
    *   13 ms
@@ -101,9 +101,10 @@ public final class Lvl5_ImplementByteSourceAndPipedByteSource {
    * </pre>
    */
   @Test
-  public void inputSuppliersAreLazy2() throws Exception {
+  public void byteSourceAreLazy2() throws Exception {
     Stopwatch t = new Stopwatch().start();
-    InputStream hasntRunYet = new DuplicatedInput(Res.supplier(gb1)).getInput();
+    InputStream hasntRunYet =
+        new DuplicatedInput(Res.randomBytesOfLength(gb1)).openStream();
     System.out.println(t.elapsed(TimeUnit.MILLISECONDS) + " ms");
     Processor.run(hasntRunYet, ByteStreams.nullOutputStream());
     System.out.println(t.stop());
