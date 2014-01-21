@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import com.google.common.io.ByteSource;
 import com.google.common.io.Closer;
+import com.google.common.io.FileWriteMode;
 import com.google.common.io.Files;
 import com.google.common.io.InputSupplier;
 
@@ -56,11 +57,11 @@ public final class Lvl3_ByteSourceToByteSink {
    */
   @Test
   public void needToStoreBetweenOperations() throws IOException {
-    InputSupplier<? extends InputStream> from = Res.byteSource();
+    ByteSource from = Res.byteSource();
     File temp = File.createTempFile("partOne", ".xml");
     try {
-      duplicateInput(from, Files.newOutputStreamSupplier(temp));
-      Processor.run(Files.newInputStreamSupplier(temp), System.out);
+      duplicateInput(from, Files.asByteSink(temp, FileWriteMode.APPEND));
+      Processor.run(Files.asByteSource(temp), System.out);
     } finally {
       // dont expect this to run promptly (Effective Java - Item 7)
       temp.delete();
