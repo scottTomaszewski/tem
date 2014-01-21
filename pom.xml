@@ -12,6 +12,17 @@
   <version>0.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
+  <repositories>
+    <repository>
+      <id>kokalabs-mvn-repo</id>
+      <url>https://raw.github.com/KokaLabs/mvn-repo/master/maven/snapshots/</url>
+      <snapshots>
+        <enabled>true</enabled>
+        <updatePolicy>always</updatePolicy>
+      </snapshots>
+    </repository>
+  </repositories>
+
   <modules>
     <module>dataflow</module>
   </modules>
