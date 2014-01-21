@@ -34,7 +34,7 @@ final class Res {
   }
 
   static InputSupplier<InputStream> supplier(long size) {
-    return Bytes.random().limitedTo(size);
+    return Bytes.random().slice(0, size);
   }
 
   static InputSupplier<InputStream> cachedSupplier(long size)
