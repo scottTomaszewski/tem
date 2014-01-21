@@ -59,6 +59,14 @@ final class Processor {
   }
 
   static void duplicateInput(
+      ByteSource from,
+      ByteSink to) throws IOException {
+    try (OutputStream out = to.openStream()) {
+      ByteSource.concat(from, from).copyTo(out);
+    }
+  }
+
+  static void duplicateInput(
       InputSupplier<? extends InputStream> from,
       OutputStream to) throws IOException {
     ByteStreams.copy(ByteStreams.join(from, from), to);
