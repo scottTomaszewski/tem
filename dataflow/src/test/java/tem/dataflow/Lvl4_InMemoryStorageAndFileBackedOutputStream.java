@@ -15,7 +15,7 @@ import com.google.common.io.ByteStreams;
 import com.google.common.io.FileBackedOutputStream;
 import com.google.common.io.InputSupplier;
 
-public final class Lvl4_InMemoryStorageFileBackedOutputStream {
+public final class Lvl4_InMemoryStorageAndFileBackedOutputStream {
   /**
    * Instead of storing to a temp file, you could store in memory for speed, but
    * has a limited input size.
