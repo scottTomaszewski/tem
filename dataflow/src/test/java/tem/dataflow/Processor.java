@@ -16,16 +16,15 @@ import com.google.common.io.ByteStreams;
  * </p>
  */
 final class Processor {
-  static void run(ByteSource from, ByteSink to) throws IOException {
-    try (OutputStream out = to.openStream()) {
-      run(from, out);
+  static void run(ByteSource from, OutputStream to) throws IOException {
+    try (InputStream in = from.openStream()) {
+      run(in, to);
     }
   }
 
-  static void run(ByteSource from, OutputStream to)
-      throws IOException {
-    try (InputStream in = from.openStream()) {
-      run(in, to);
+  static void run(ByteSource from, ByteSink to) throws IOException {
+    try (OutputStream out = to.openStream()) {
+      run(from, out);
     }
   }
 
@@ -33,16 +32,14 @@ final class Processor {
     ByteStreams.copy(from, to);
   }
 
-  static void duplicateInput(
-      ByteSource from,
-      ByteSink to) throws IOException {
-    try (OutputStream out = to.openStream()) {
-      ByteSource.concat(from, from).copyTo(out);
-    }
-  }
-
   static void duplicateInput(ByteSource from, OutputStream to)
       throws IOException {
     ByteSource.concat(from, from).copyTo(to);
+  }
+
+  static void duplicateInput(ByteSource from, ByteSink to) throws IOException {
+    try (OutputStream out = to.openStream()) {
+      ByteSource.concat(from, from).copyTo(out);
+    }
   }
 }
