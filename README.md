@@ -8,4 +8,4 @@ Repo for Technical Exchange Meetings that I give.
 Since this isn't in maven central yet, execute the following to setup the TEM
     
     git clone git@github.com:scottTomaszewski/tem.git
-    mvn clean install -f tem/pom.xml -T 1C
+    mvn clean install -f tem/pom.xml -s tem/settings.xml -T 1C
