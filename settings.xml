@@ -15,9 +15,7 @@
         </repository>
       </repositories>
     </profile>
-  </profiles>
 
-  <profiles>
     <profile>
       <id>kokalabs</id>
       <repositories>
