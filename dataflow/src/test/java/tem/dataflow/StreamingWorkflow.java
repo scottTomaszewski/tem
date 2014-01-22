@@ -10,32 +10,26 @@ import com.google.common.io.ByteSource;
 public final class StreamingWorkflow {
   @Test
   public void flowsTwice() throws IOException {
-    ByteSource first = new CreateAndPrint();
-    ByteSource printed = new Prints(first);
-    printed.copyTo(System.out);
-    printed.copyTo(System.out);
+    ByteSource from = Res.byteSource();
+    ByteSource first = new PrintAndPassThrough(from, "\nfirst");
+    ByteSource second = new PrintAndPassThrough(first, "second");
+    second.copyTo(System.out);
+    second.copyTo(System.out);
   }
 
-  private final class CreateAndPrint extends ByteSource {
-    @Override
-    public InputStream openStream() throws IOException {
-      InputStream stream = Res.stream();
-      System.out.println("\nNew InputStream created.");
-      return stream;
-    }
-  }
-
-  private static final class Prints extends ByteSource {
+  private static final class PrintAndPassThrough extends ByteSource {
     private final ByteSource from;
+    private final String toPrint;
 
-    public Prints(ByteSource from) {
+    public PrintAndPassThrough(ByteSource from, String toPrint) {
       this.from = from;
+      this.toPrint = toPrint; 
     }
 
     @Override
     public InputStream openStream() throws IOException {
       InputStream input = from.openStream();
-      System.out.println("Second operation executed.");
+      System.out.println(toPrint);
       return input;
     }
   }
