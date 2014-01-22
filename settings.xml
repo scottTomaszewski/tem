@@ -4,6 +4,21 @@
                       http://maven.apache.org/xsd/settings-1.0.0.xsd">
   <profiles>
     <profile>
+      <id>centralFirst</id>
+      <repositories>
+        <repository>
+          <id>central</id>
+          <url>http://repo1.maven.org/maven2</url>
+          <snapshots>
+            <enabled>false</enabled>
+          </snapshots>
+        </repository>
+      </repositories>
+    </profile>
+  </profiles>
+
+  <profiles>
+    <profile>
       <id>kokalabs</id>
       <repositories>
         <repository>
@@ -18,6 +33,7 @@
     </profile>
   </profiles>
   <activeProfiles>
+    <activeProfile>centralFirst</activeProfile>
     <activeProfile>kokalabs</activeProfile>
   </activeProfiles>
 </settings>
