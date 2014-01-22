@@ -10,7 +10,6 @@ import koka.util.io.guava.InMemoryBytes;
 
 import org.junit.Test;
 
-import com.google.common.io.ByteSource;
 import com.google.common.io.ByteStreams;
 import com.google.common.io.FileBackedOutputStream;
 
