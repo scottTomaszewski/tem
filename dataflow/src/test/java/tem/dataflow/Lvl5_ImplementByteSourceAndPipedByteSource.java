@@ -5,13 +5,11 @@ import static tem.dataflow.Res.gb1;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.concurrent.TimeUnit;
 
 import koka.util.io.guava.PipedByteSource;
 
 import org.junit.Test;
 
-import com.google.common.base.Stopwatch;
 import com.google.common.io.ByteSource;
 import com.google.common.io.ByteStreams;
 
