@@ -4,7 +4,7 @@
                       http://maven.apache.org/xsd/settings-1.0.0.xsd">
   <profiles>
     <profile>
-      <id>centralFirst</id>
+      <id>kokalabs</id>
       <repositories>
         <repository>
           <id>central</id>
@@ -13,12 +13,7 @@
             <enabled>false</enabled>
           </snapshots>
         </repository>
-      </repositories>
-    </profile>
 
-    <profile>
-      <id>kokalabs</id>
-      <repositories>
         <repository>
           <id>kokalabs-mvn-repo</id>
           <url>https://raw.github.com/KokaLabs/mvn-repo/master/maven/snapshots/</url>
@@ -31,7 +26,6 @@
     </profile>
   </profiles>
   <activeProfiles>
-    <activeProfile>centralFirst</activeProfile>
     <activeProfile>kokalabs</activeProfile>
   </activeProfiles>
 </settings>
