@@ -12,6 +12,7 @@ import java.net.URL;
 import org.junit.Test;
 
 public class Lvl2_InputStreamsToOutputStreams {
+  @SuppressWarnings({ "unused", "resource" })
   @Test
   public void centralizedAPI() throws Exception {
     InputStream in; 
