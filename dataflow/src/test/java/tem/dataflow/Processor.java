@@ -9,10 +9,10 @@ import com.google.common.io.ByteSource;
 import com.google.common.io.ByteStreams;
 
 /**
- * Mysterious processor. Represents any operation we perform in our code. Could
- * be validation, a transform, etc.
+ * Random service to provide an operation. Represents any operation we perform
+ * in our code. Could be validation, a transform, etc.
  * <p>
- * This Processor simply copies the input to the output for clarity
+ * This Processor simply copies the input to the output or duplicates input.
  * </p>
  */
 final class Processor {
